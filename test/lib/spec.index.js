@@ -1,5 +1,11 @@
 'use strict';
 
+const chai = require('chai');
+chai.should();
+global.expect = chai.expect;
+global.sinon = require('sinon');
+chai.use(require('sinon-chai'));
+
 const HmpoCachedModel = require('../../lib');
 const HmpoModel = require('hmpo-model');
 
