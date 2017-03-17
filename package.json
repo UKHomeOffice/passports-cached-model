@@ -28,8 +28,7 @@
   "dependencies": {
     "async": "^2.1.5",
     "debug": "^2.6.3",
-    "hmpo-model": "^1.0.0",
-    "underscore": "^1.8.2"
+    "hmpo-model": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
