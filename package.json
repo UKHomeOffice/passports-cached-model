@@ -1,6 +1,6 @@
 {
   "name": "hmpo-cached-model",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Cached polling model",
   "main": "index.js",
   "scripts": {
@@ -35,7 +35,6 @@
     "eslint": "^3.13.1",
     "istanbul": "^0.4.3",
     "mocha": "^3.1.2",
-    "proxyquire": "^1.7.10",
     "sinon": "^1.14.1",
     "sinon-chai": "^2.7.0",
     "snyk": "^1.24.5"
