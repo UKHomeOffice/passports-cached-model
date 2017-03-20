@@ -389,10 +389,14 @@ describe('HmpoCachedModel', () => {
     describe('start', () => {
         beforeEach(() => {
             sinon.stub(HmpoCachedModel.prototype, 'stop');
+            sinon.stub(HmpoCachedModel.prototype, 'loadFromStore');
+            sinon.stub(HmpoCachedModel.prototype, 'loadFromApi');
         });
 
         afterEach(() => {
             HmpoCachedModel.prototype.stop.restore();
+            HmpoCachedModel.prototype.loadFromStore.restore();
+            HmpoCachedModel.prototype.loadFromApi.restore();
         });
 
         it('should be a function', () => {
@@ -404,6 +408,12 @@ describe('HmpoCachedModel', () => {
             HmpoCachedModel.prototype.stop.should.have.been.calledOnce;
         });
 
+        it('should run the two loding functions', () => {
+            instance.start();
+            HmpoCachedModel.prototype.loadFromStore.should.have.been.called;
+            HmpoCachedModel.prototype.loadFromApi.should.have.been.called;
+        });
+
         it('should create two interval timers', () => {
             instance.start();
             instance.storeTimer.should.be.ok;
@@ -413,12 +423,14 @@ describe('HmpoCachedModel', () => {
         it('should not create store timer if there is no interval in options', () => {
             delete instance.options.storeInterval;
             instance.start();
+            HmpoCachedModel.prototype.loadFromStore.should.not.have.been.called;
             expect(instance.storeTimer).to.not.be.ok;
         });
 
         it('should not create api timer if there is no interval in options', () => {
             delete instance.options.apiInterval;
             instance.start();
+            HmpoCachedModel.prototype.loadFromApi.should.not.have.been.called;
             expect(instance.apiTimer).to.not.be.ok;
         });
     });
