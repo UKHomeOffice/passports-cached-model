@@ -1,6 +1,6 @@
 {
   "name": "hmpo-cached-model",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Cached polling model",
   "main": "index.js",
   "scripts": {
