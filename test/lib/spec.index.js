@@ -136,7 +136,7 @@ describe('HmpoCachedModel', () => {
             cb.should.have.been.calledWithExactly(err);
         });
 
-        it('should call callback with JSON vaidation error', () => {
+        it('should call callback with JSON validation error', () => {
             storeStub.get.yields(null, '{{{');
             instance.getStoreData(cb);
             cb.should.have.been.calledWithExactly(sinon.match.instanceOf(Error));
@@ -408,7 +408,7 @@ describe('HmpoCachedModel', () => {
             HmpoCachedModel.prototype.stop.should.have.been.calledOnce;
         });
 
-        it('should run the two loding functions', () => {
+        it('should run the two loading functions', () => {
             instance.start();
             HmpoCachedModel.prototype.loadFromStore.should.have.been.called;
             HmpoCachedModel.prototype.loadFromApi.should.have.been.called;

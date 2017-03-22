@@ -6,7 +6,7 @@ Poll an API at a given interval and save the data to a data storoe such as redis
 ## Usage
 
 ```
-const HmpoCachedModel = require('hmpo-caches-model');
+const HmpoCachedModel = require('hmpo-cached-model');
 
 let model = new HmpoCachedModel(
     { // optional seed data
