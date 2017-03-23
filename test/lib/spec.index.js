@@ -10,7 +10,7 @@ const HmpoCachedModel = require('../../lib');
 const HmpoModel = require('hmpo-model');
 
 describe('HmpoCachedModel', () => {
-    let clock, instance, storeStub, options, cb;
+    let clock, instance, storeFactory, storeStub, options, cb;
 
     beforeEach(() => {
         clock = sinon.useFakeTimers(1234567890000);
@@ -18,14 +18,20 @@ describe('HmpoCachedModel', () => {
         sinon.stub(HmpoModel.prototype, 'set');
         sinon.stub(HmpoModel.prototype, 'get');
         sinon.stub(HmpoModel.prototype, 'emit');
+
         storeStub = {
             get: sinon.stub(),
             set: sinon.stub().yields(null)
         };
+
+        storeFactory = {
+            getClient: sinon.stub().returns(storeStub)
+        };
+
         options = {
             url: 'http://example.com/api',
             key: 'root-key',
-            store: storeStub,
+            store: storeFactory,
             storeInterval: 1000,
             apiInterval: 2000
         };
@@ -64,6 +70,11 @@ describe('HmpoCachedModel', () => {
 
         it('should throw an error if no store is supplied', () => {
             delete options.store;
+            expect( () => new HmpoCachedModel(null, options) ).to.throw();
+        });
+
+        it('should throw an error if no store getClient function is supplied', () => {
+            options.store = {};
             expect( () => new HmpoCachedModel(null, options) ).to.throw();
         });
     });
@@ -408,7 +419,7 @@ describe('HmpoCachedModel', () => {
             HmpoCachedModel.prototype.stop.should.have.been.calledOnce;
         });
 
-        it('should run the two loding functions', () => {
+        it('should run the two loading functions', () => {
             instance.start();
             HmpoCachedModel.prototype.loadFromStore.should.have.been.called;
             HmpoCachedModel.prototype.loadFromApi.should.have.been.called;
