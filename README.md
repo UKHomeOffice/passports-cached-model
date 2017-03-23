@@ -8,6 +8,12 @@ Poll an API at a given interval and save the data to a data storoe such as redis
 ```
 const HmpoCachedModel = require('hmpo-cached-model');
 
+let redisFactory = {
+    getClient() {
+        return redisInstance;
+    }
+}
+
 let model = new HmpoCachedModel(
     { // optional seed data
         foo: 'bar',
@@ -16,7 +22,7 @@ let model = new HmpoCachedModel(
     { // options
         url: 'http://example.com/api',
         key: 'root-key',
-        store: redisInstance,
+        store: redisFactory,
         storeInterval: 1000,
         apiInterval: 2000
     }
