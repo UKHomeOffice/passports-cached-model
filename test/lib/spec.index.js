@@ -29,13 +29,13 @@ describe('HmpoCachedModel', () => {
         };
 
         options = {
-            url: 'http://example.com/api',
             key: 'root-key',
             store: storeFactory,
             storeInterval: 1000,
             apiInterval: 2000
         };
         instance = new HmpoCachedModel(null, options);
+
         cb = sinon.stub();
     });
 
@@ -222,10 +222,9 @@ describe('HmpoCachedModel', () => {
             instance.getDataFromAPI.should.be.a('function');
         });
 
-        it('should call fetch with url', () => {
+        it('should call fetch with callback', () => {
             instance.getDataFromAPI(cb);
             HmpoModel.prototype.fetch.should.have.been.calledWithExactly(
-                { url: 'http://example.com/api' },
                 sinon.match.func
             );
         });
